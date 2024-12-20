@@ -11,7 +11,6 @@ function getCurrentDate(){
     return `${year}-${month}-${day}`
 }
 
-
 const name = ref(null)
 const surname = ref(null)
 const dateBrith = ref(null)
