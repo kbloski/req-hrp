@@ -5,6 +5,7 @@
     title="Register"
     :subtitle="`Step ${steps.current}/${steps.total}`" 
   >
+    <v-divider></v-divider>
     <personal-form v-if="steps.current == 1" @submit-form="changeStep"></personal-form>
     <contact-form v-if="steps.current == 2"></contact-form>
     <experience-form v-if="steps.current == 3"></experience-form>

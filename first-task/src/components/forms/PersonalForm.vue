@@ -49,6 +49,7 @@ function onSubmit( event ){
 
 <template>
     <v-container>
+        <div class="text-subtitle-1 font-weight-black">Personal</div>
         <v-form @submit="onSubmit">
             <v-text-field
                 v-model="name"
