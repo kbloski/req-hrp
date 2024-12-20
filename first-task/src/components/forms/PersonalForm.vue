@@ -67,6 +67,7 @@ function onSubmit( event ){
             ></v-text-field>
             <v-text-field
                 v-model="dateBrith"
+                label="Brithday"
                 color="primary"
                 type="date"
                 :rules="[() => validationErrors.dateBrith ?? true]"
