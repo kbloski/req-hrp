@@ -3,6 +3,15 @@ import { ref, reactive, watch, computed } from 'vue';
 
 const emits = defineEmits(['submit-form'])
 
+function getCurrentDate(){
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth()).padStart(2, '0')
+    const day = String( date.getDay()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+}
+
+
 const name = ref(null)
 const surname = ref(null)
 const dateBrith = ref(null)
@@ -28,8 +37,9 @@ watch([name, surname, dateBrith], ([name, surname, dateBrith]) => {
     else validationErrors.surname = null
     
     if (!dateBrith) validationErrors.dateBrith = 'This field is required'
-    // TODO check is back date from today
-    else validationErrors.dateBrith = null
+    else {
+        validationErrors.dateBrith = null
+    } 
 }, { immediate: true})
 
 
@@ -70,6 +80,7 @@ function onSubmit( event ){
                 label="Brithday"
                 color="primary"
                 type="date"
+                :max="getCurrentDate()"
                 :rules="[() => validationErrors.dateBrith ?? true]"
                 required
             ></v-text-field>

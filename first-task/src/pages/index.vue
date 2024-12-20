@@ -8,7 +8,10 @@
     <v-divider></v-divider>
     <v-btn v-if="steps.current >= 2" @click="backStep">Go Back</v-btn>
 
-    <personal-form v-if="steps.current == 1" @submit-form="changeStep"></personal-form>
+    <personal-form 
+      v-if="steps.current == 1" 
+      @submit-form="changeStep"
+    ></personal-form>
     <contact-form v-if="steps.current == 2" @submit-form="changeStep"></contact-form>
     <experience-form v-if="steps.current == 3"></experience-form>
   </v-card>
@@ -21,12 +24,12 @@ import PersonalForm from '@/components/forms/PersonalForm.vue';
 import { reactive } from 'vue';
 
 const steps = reactive({
-  current: 3,
+  current: 1,
   total: 3
 });
 
 function changeStep( formData ){
-    if (formData.isValidate) steps.current++;
+    // if (formData.isValidate) steps.current++;
 }
 
 const backStep = () => {
