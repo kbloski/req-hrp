@@ -1,3 +1,27 @@
+<script setup>
+import ContactForm from '@/components/forms/ContactForm.vue';
+import ExperienceForm from '@/components/forms/ExperienceForm.vue';
+import PersonalForm from '@/components/forms/PersonalForm.vue';
+import { reactive } from 'vue';
+
+const steps = reactive({
+  current: 3,
+  total: 3
+});
+
+function changeStep( formData ){
+    if (formData.isValidate) steps.current++;
+}
+
+const backStep = () => {
+  if (steps.current <= 1) return;
+  steps.current --
+}
+
+</script>
+
+
+
 <template>
   <v-card 
     class="mx-auto"
@@ -17,25 +41,4 @@
   </v-card>
 </template>
 
-<script setup>
-import ContactForm from '@/components/forms/ContactForm.vue';
-import ExperienceForm from '@/components/forms/ExperienceForm.vue';
-import PersonalForm from '@/components/forms/PersonalForm.vue';
-import { reactive } from 'vue';
 
-const steps = reactive({
-  current: 1,
-  total: 3
-});
-
-function changeStep( formData ){
-    // if (formData.isValidate) steps.current++;
-}
-
-const backStep = () => {
-  if (steps.current <= 1) return;
-  steps.current --
-}
-
-
-</script>
