@@ -28,13 +28,13 @@ watch([name, surname, dateBrith], ([name, surname, dateBrith]) => {
     else validationErrors.surname = null
     
     if (!dateBrith) validationErrors.dateBrith = 'This field is required'
+    // TODO check is back date from today
     else validationErrors.dateBrith = null
 }, { immediate: true})
 
 
 function onSubmit( event ){
     event.preventDefault()
-    // if (!isValidate.value) return;
 
     emits( 'submit-form', {
         isValidate: isValidate.value,
