@@ -6,6 +6,7 @@
     :subtitle="`Step ${steps.current}/${steps.total}`" 
   >
     <v-divider></v-divider>
+    <v-btn v-if="steps.current >= 2" @click="backStep">Go Back</v-btn>
     <personal-form v-if="steps.current == 1" @submit-form="changeStep"></personal-form>
     <contact-form v-if="steps.current == 2"></contact-form>
     <experience-form v-if="steps.current == 3"></experience-form>
@@ -26,5 +27,11 @@ const steps = reactive({
 function changeStep( formData ){
     if (formData.isValidate) steps.current++;
 }
+
+const backStep = () => {
+  if (steps.current <= 1) return;
+  steps.current --
+}
+
 
 </script>
