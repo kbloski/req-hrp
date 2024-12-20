@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, watch, computed } from 'vue';
+import { validEmail } from '@/validation';
 
 const emits = defineEmits(['submit-form'])
 
@@ -23,7 +24,14 @@ watch([phone, email], ([phone, email]) => {
     else validationErrors.phone = null
 
     if (!email) validationErrors.email = 'This field is required'
-    else validationErrors.email = null
+    else {
+        try {
+            validEmail( email )
+            validationErrors.email = null
+        } catch (err){
+            validationErrors.email = err
+        }
+    } 
 }, { immediate: true})
 
 

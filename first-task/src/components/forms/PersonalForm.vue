@@ -21,6 +21,7 @@ const validationErrors = reactive({
     surname: null,
     dateBrith: null
 })
+
 const isValidate = computed( 
     () => 
     !validationErrors.name 
@@ -29,16 +30,15 @@ const isValidate = computed(
 )
 
 watch([name, surname, dateBrith], ([name, surname, dateBrith]) => {
+    validationErrors.name = null
+    validationErrors.surname = null
+    validationErrors.dateBrith = null
+
     if (!name) validationErrors.name = 'This field is required'
-    else validationErrors.name = null
 
     if (!surname) validationErrors.surname = 'This field is required'
-    else validationErrors.surname = null
     
     if (!dateBrith) validationErrors.dateBrith = 'This field is required'
-    else {
-        validationErrors.dateBrith = null
-    } 
 }, { immediate: true})
 
 
