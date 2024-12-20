@@ -21,7 +21,7 @@ import PersonalForm from '@/components/forms/PersonalForm.vue';
 import { reactive } from 'vue';
 
 const steps = reactive({
-  current: 2,
+  current: 3,
   total: 3
 });
 

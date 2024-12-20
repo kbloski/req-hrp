@@ -76,7 +76,7 @@ function onSubmit( event ){
                 type="submit" 
                 color="success"
                 class="mt-3"
-            >Go next step</v-btn>
+            >Submit</v-btn>
         </v-form>
     </v-container>
 </template>
