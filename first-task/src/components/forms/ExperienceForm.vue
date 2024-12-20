@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, watch, computed } from "vue";
-import { errorMessages } from "vue/compiler-sfc";
+import { isNumber } from "@/validation";
 
 const emits = defineEmits(["submit-form"]);
 
@@ -24,20 +24,45 @@ const isValidate = computed(
         !endDate.company
 );
 
+function isDateAfter( firstDate, secondDate){
+    let dateBefore = firstDate
+    let dateAfter = secondDate
+
+    if (!(dateBefore instanceof Date)) dateBefore = new Date(firstDate)
+    if (!(dateAfter instanceof Date)) dateAfter = new Date(secondDate)
+
+    // Check valid date type
+    if ( !isNumber(dateBefore.getTime())) 
+        throw new Error('Provide valid date in first argument.')
+    if (!isNumber( dateAfter.getTime())) 
+        throw new Error("Provide valid date in second argument.")
+
+    return dateBefore.getTime() < dateAfter.getTime()
+}
+
 watch(
     [ company, position, startDate, endDate],
     ([ company, position, startDate, endDate]) => {
-       if (!position) validationErrors.position = "This field is required";
-        else validationErrors.position = null;
+        validationErrors.position = null;
+        validationErrors.company = null;
+        validationErrors.startDate = null;
+        validationErrors.endDate = null;
+
+        if (!position) validationErrors.position = "This field is required";
 
         if (!company) validationErrors.company = "This field is required";
-        else validationErrors.company = null;
-
+        
         if (!startDate) validationErrors.startDate = "This field is required";
-        else validationErrors.startDate = null;
 
         if (!endDate) validationErrors.endDate = "This field is required";
-        else validationErrors.endDate = null;
+
+        if (startDate && endDate && !isDateAfter(startDate, endDate)) {
+            validationErrors.startDate = 'Start date must be before end date.'
+            validationErrors.endDate = 'End date must be after start date.'
+        }
+
+
+       
     },
     { immediate: true }
 );
