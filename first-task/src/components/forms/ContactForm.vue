@@ -1,0 +1,18 @@
+<template>
+    <v-container>
+        <v-form>
+            <v-text-field
+                label="Phone"
+                variant="underlined"
+                type="number"
+                min="100000000"
+                max="999999999"
+            ></v-text-field>
+            <v-text-field
+                label="Email"
+                variant="underlined"
+                type="email"
+            ></v-text-field>
+        </v-form>
+    </v-container>
+</template>
