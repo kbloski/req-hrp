@@ -1,5 +1,8 @@
 <script setup>
+import { usePost } from '@/hooks/usePost';
 import ExperiencesList from './ExperiencesList.vue';
+
+const submitFetch = usePost('https://url-api/register');
 
 const props = defineProps({
     name: String,
@@ -9,6 +12,12 @@ const props = defineProps({
     email: String,
     experiences: Array,
 });
+
+
+function sendData(){
+    submitFetch.postData( props )
+}
+
 </script>
 
 <template>
@@ -22,7 +31,7 @@ const props = defineProps({
             <div>Email: {{ email }}</div>
         </div>
         <experiences-list :experiences="experiences" :height="100"></experiences-list>
-        <v-btn color="success mt-4 ">Prześlij dane</v-btn>
+        <v-btn color="success mt-4" @click="sendData" :loading="submitFetch.loading.value">Prześlij dane</v-btn>
     </v-container>
 </template>
 

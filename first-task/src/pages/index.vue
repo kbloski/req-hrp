@@ -15,7 +15,7 @@ const summaryData = reactive({
 });
 
 const steps = reactive({
-    current: 3,
+    current: 1,
     total: 4,
 });
 
