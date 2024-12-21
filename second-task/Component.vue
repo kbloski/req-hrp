@@ -35,8 +35,8 @@ import { useStorage } from 'src/hooks/useStorage';
 import { inject, ref } from 'vue';
 
 interface Props {
-    value: string,
-    dense: boolean
+    value?: string,
+    dense?: boolean
 }
 
 interface Emits {
