@@ -14,7 +14,7 @@ export function usePost(
   const error = ref(null);
   const loading = ref(false);
   const data = ref(null);
-  const isOk = ref(false); 
+  const isOk = ref(null); 
 
   async function postData(body) {
     loading.value = true;
