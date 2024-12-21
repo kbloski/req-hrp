@@ -42,7 +42,7 @@ function onSubmit( event ){
     event.preventDefault()
 
     emits( 'submit-form', {
-        isValidate: isValidate.value,
+        isValid: isValidate.value,
         formData: {
             phone: phone.value,
             email: email.value

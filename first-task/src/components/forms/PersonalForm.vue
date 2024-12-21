@@ -46,7 +46,7 @@ function onSubmit( event ){
     event.preventDefault()
 
     emits( 'submit-form', {
-        isValidate: isValidate.value,
+        isValid: isValidate.value,
         formData: {
             name: name.value,
             surname: surname.value,

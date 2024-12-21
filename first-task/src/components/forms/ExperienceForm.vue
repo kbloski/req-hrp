@@ -71,10 +71,12 @@ function onSubmit(event) {
     event.preventDefault();
 
     emits("submit-form", {
-        isValidate: isValidate.value,
+        isValid: isValidate.value,
         formData: {
-            position: position.value,
             company: company.value,
+            position: position.value,
+            start: startDate.value,
+            end: endDate.value,
         },
     });
 }
@@ -82,6 +84,7 @@ function onSubmit(event) {
 
 <template>
     <v-container>
+        <div class="text-subtitle-1 font-weight-black">Experiences</div>
         <v-form @submit="onSubmit">
             <v-text-field 
                 label="Company"
