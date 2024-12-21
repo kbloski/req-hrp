@@ -68,13 +68,22 @@ const themes : Theme[] = [
 const updateTheme = (value : theme ) => {
     pageTheme.set(value);
 
-    api.post('/user-settings', { theme: value }).then((response) => {
-        showAlert(alertType.SUCCESS, trans('Poprawnie zapisano ustawienia'));
-
-        if (response.data && response.data.success && response.data.data) {
-            storage.setItem('theme', response.data.data.theme); // string - ls przyjmuje tylko stringi do zapisu 
-            emit('selected', response.data.data.theme);
-        }
-    });
+    try {
+        api.post('/user-settings', { theme: value })
+        .then((response) => {
+            showAlert(alertType.SUCCESS, trans('Poprawnie zapisano ustawienia'));
+    
+            if (response.data && response.data.success && response.data.data) {
+                storage.setItem('theme', response.data.data.theme); // string - ls przyjmuje tylko stringi do zapisu 
+                emit('selected', response.data.data.theme);
+            }
+        })
+    } catch (err){
+        console.error('Error updating theme: ', err);
+        showAlert( 
+            allertType.ERROR, // tak obstawiam -> pochodzi z katalogu enum
+            trans("Wystąpił błąd przy aktualizacji")
+        )
+    }
 };
 </script>
