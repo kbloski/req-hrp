@@ -10,6 +10,13 @@ const position = ref(null);
 const startDate = ref(null);
 const endDate = ref(null);
 
+function resetFormData(){
+    company.value = null;
+    position.value = null;
+    startDate.value = null;
+    endDate.value = null;
+}
+
 // Errors
 const validationErrors = reactive({
     position: null,
@@ -17,6 +24,7 @@ const validationErrors = reactive({
     startDate: null,
     endDate: null,
 });
+
 const isValidate = computed(
     () =>
         !validationErrors.position &&
@@ -80,6 +88,8 @@ function onSubmit(event) {
             end: endDate.value,
         },
     });
+
+    resetFormData()
 }
 </script>
 
