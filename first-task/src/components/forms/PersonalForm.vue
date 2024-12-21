@@ -1,15 +1,8 @@
 <script setup>
 import { ref, reactive, watch, computed } from 'vue';
+import { getCurrentDateFormYearMontDay } from '@/utils/dateUtils';
 
 const emits = defineEmits(['submit-form'])
-
-function getCurrentDate(){
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth()).padStart(2, '0')
-    const day = String( date.getDay()).padStart(2, '0')
-    return `${year}-${month}-${day}`
-}
 
 const name = ref(null)
 const surname = ref(null)
@@ -79,7 +72,7 @@ function onSubmit( event ){
                 label="Brithday"
                 color="primary"
                 type="date"
-                :max="getCurrentDate()"
+                :max="getCurrentDateFormYearMontDay()"
                 :rules="[() => validationErrors.dateBrith ?? true]"
                 required
             ></v-text-field>

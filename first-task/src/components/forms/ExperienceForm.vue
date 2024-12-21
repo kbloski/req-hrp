@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, watch, computed } from "vue";
 import { isNumber } from "@/validation";
+import { getCurrentDateFormYearMontDay } from "@/utils/dateUtils";
 
 const emits = defineEmits(["submit-form"]);
 
@@ -104,12 +105,14 @@ function onSubmit(event) {
                 label="Start date" 
                 v-model="startDate"
                 type="date"
+                :max="getCurrentDateFormYearMontDay()"
                 :rules="[validationErrors.startDate ?? true]"
                 required
             ></v-text-field>
             <v-text-field 
                 label="End date"
                 v-model="endDate" 
+                :max="getCurrentDateFormYearMontDay()"
                 type="date"
                 :rules="[validationErrors.endDate ?? true]"
                 required
