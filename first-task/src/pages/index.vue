@@ -3,16 +3,10 @@ import ExperiencesList from "@/components/ExperiencesList.vue";
 import ContactForm from "@/components/forms/ContactForm.vue";
 import ExperienceForm from "@/components/forms/ExperienceForm.vue";
 import PersonalForm from "@/components/forms/PersonalForm.vue";
+import { useRegisterStore } from "@/store/register";
 import { reactive } from "vue";
 
-const summaryData = reactive({
-    name: null,
-    surname: null,
-    birthday: null,
-    phone: null,
-    email: null,
-    experiences: [],
-});
+const registerStore = useRegisterStore()
 
 const steps = reactive({
     current: 1,
@@ -28,9 +22,9 @@ function endStep1(formData) {
 
     const data = formData.formData;
 
-    summaryData.name = data.name;
-    summaryData.surname = data.surname;
-    summaryData.birthday = data.dateBrith;
+    registerStore.name = data.name;
+    registerStore.surname = data.surname;
+    registerStore.birthday = data.brithday;
 
     steps.current = 2;
 }
@@ -40,8 +34,8 @@ function endStep2(formData) {
 
     const data = formData.formData;
 
-    summaryData.phone = data.phone;
-    summaryData.email = data.email;
+    registerStore.phone = data.phone;
+    registerStore.email = data.email;
 
     steps.current = 3;
 }
@@ -54,7 +48,7 @@ function submitExperienceForm(form) {
     if (!form.isValid) return;
 
     const experienceData = form.formData;
-    summaryData.experiences.push(experienceData);
+    registerStore.experiences.push( experienceData );
 }
 </script>
 
@@ -97,13 +91,11 @@ function submitExperienceForm(form) {
             >Go to summary</v-btn>
             <v-divider></v-divider>
             <experiences-list
-                :experiences="summaryData.experiences"
+                :experiences="registerStore.experiences"
             ></experiences-list>
         </div>
-        <div v-show="steps.current === steps.total">
-          <Summary 
-              v-bind="summaryData"
-          ></Summary>
+        <div v-if="steps.current === steps.total">
+          <Summary></Summary>
         </div>
     </v-card>
 </template>

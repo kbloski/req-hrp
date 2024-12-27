@@ -16,7 +16,7 @@ export function usePost(
   const data = ref(null);
   const isOk = ref(null); 
 
-  async function postData(body) {
+  async function postData( anyData ) {
     loading.value = true;
     error.value = null;
     data.value = null;
@@ -24,7 +24,7 @@ export function usePost(
     try {
       const response = await fetch(fullUrl.value, {
         method: "POST", 
-        body: JSON.stringify(body), 
+        body: JSON.stringify( anyData ), 
         ...options,
       });
 

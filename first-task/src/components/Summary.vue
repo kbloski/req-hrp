@@ -1,21 +1,21 @@
 <script setup>
 import { usePost } from '@/hooks/usePost';
 import ExperiencesList from './ExperiencesList.vue';
+import { useRegisterStore } from '@/store/register';
 
 const submitFetch = usePost('https://url-api/register');
-
-const props = defineProps({
-    name: String,
-    surname: String,
-    birthday: String, 
-    phone: Number,
-    email: String,
-    experiences: Array,
-});
+const registerStore = useRegisterStore()
 
 
 function sendData(){
-    submitFetch.postData( props )
+    submitFetch.postData( {
+        name: registerStore.name,
+        surname: registerStore.surname,
+        birthday: registerStore.birthday,
+        phone: registerStore.phone,
+        email: registerStore.email,
+        experiences: registerStore.experiences
+    } )
 }
 
 </script>
@@ -41,13 +41,13 @@ function sendData(){
 
         <div class="text-subtitle-1 font-weight-black">Summary</div>
         <div>
-            <div>Name: {{ name }} </div>
-            <div>Surname: {{ surname }} </div>
-            <div>Brithday: {{ birthday }}</div>
-            <div>Phone: {{ phone }}</div>
-            <div>Email: {{ email }}</div>
+            <div>Name: {{ registerStore.name }} </div>
+            <div>Surname: {{ registerStore.surname }} </div>
+            <div>Brithday: {{ registerStore.birthday }}</div>
+            <div>Phone: {{ registerStore.phone }}</div>
+            <div>Email: {{ registerStore.email }}</div>
         </div>
-        <experiences-list :experiences="experiences" :height="100"></experiences-list>
+        <experiences-list :experiences="registerStore.experiences" :height="100"></experiences-list>
         <v-btn color="success mt-4" @click="sendData" :loading="submitFetch.loading.value">Prześlij dane</v-btn>
     </v-container>
 </template>
