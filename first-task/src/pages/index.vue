@@ -76,17 +76,17 @@ function submitExperienceForm(form) {
         >
         <v-divider></v-divider>
 
-        <div v-if="steps.current == 1">
+        <div v-show="steps.current == 1">
             <keep-alive>
                 <personal-form @submit-form="endStep1"></personal-form>
             </keep-alive>
         </div>
-        <div v-if="steps.current == 2">
+        <div v-show="steps.current == 2">
             <keep-alive>
                 <contact-form @submit-form="endStep2"></contact-form>
             </keep-alive>
         </div>
-        <div v-if="steps.current == 3">
+        <div v-show="steps.current == 3">
             <keep-alive>
                 <experience-form @submit-form="submitExperienceForm"></experience-form>
             </keep-alive>
@@ -97,11 +97,10 @@ function submitExperienceForm(form) {
             >Go to summary</v-btn>
             <v-divider></v-divider>
             <experiences-list
-                v-if="summaryData.experiences.length"
                 :experiences="summaryData.experiences"
             ></experiences-list>
         </div>
-        <div v-if="steps.current === steps.total">
+        <div v-show="steps.current === steps.total">
           <Summary 
               v-bind="summaryData"
           ></Summary>
