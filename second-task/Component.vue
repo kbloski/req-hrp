@@ -67,18 +67,20 @@ const updateTheme = (value : theme ) => {
 
     try {
         api.post('/user-settings', { theme: value })
-        .then((response) => {
+        .then( response => {
+            if (
+                !response.data 
+                || !response.data?.success
+                || response.data.data
+            ) {
+                throw new Error('Nie udało się zapisać ustawień');
+            }
+            
             showAlert(alertType.SUCCESS, trans('Poprawnie zapisano ustawienia'));
-    
             if (response.data && response.data.success && response.data.data) {
                 storage.setItem('theme', response.data.data.theme); 
                 emit('selected', response.data.data.theme);
             }
-
-            if (!response.data?.success) {
-                throw new Error('Nie udało się zapisać ustawień');
-            }
-
         })
     } catch (err){
         console.error('Error updating theme: ', err);
