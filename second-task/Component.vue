@@ -34,23 +34,14 @@ import { usePageTheme } from 'src/hooks/usePageTheme';
 import { useStorage } from 'src/hooks/useStorage';
 import { inject, ref } from 'vue';
 
-interface Props {
+const emit = defineEmits<{
+    (event: 'selected', value: string ) : void
+}>();
+
+const props = defineProps<{
     value?: string,
     dense?: boolean
-}
-
-interface Emits {
-    (event: 'selected', arg: string) : void
-}
-
-interface Theme {
-    label: string,
-    value: theme,
-    icon: string
-}
-
-const emit = defineEmits<Emits>(['selected']);
-const props = defineProps<Props>(['value', 'dense']);
+}>();
 
 const api = inject('api');
 const trans = inject('trans');
@@ -58,6 +49,12 @@ const trans = inject('trans');
 const storage = useStorage();
 const pageTheme = usePageTheme();
 const currentTheme = ref<string>(props.value || pageTheme.get());
+
+interface Theme {
+    label: string,
+    value: theme,
+    icon: string
+}
 
 const themes : Theme[] = [
     { label: 'Motyw jasny', value: theme.LIGHT, icon: 'fa-regular fa-sun' },
@@ -74,16 +71,14 @@ const updateTheme = (value : theme ) => {
             showAlert(alertType.SUCCESS, trans('Poprawnie zapisano ustawienia'));
     
             if (response.data && response.data.success && response.data.data) {
-                storage.setItem('theme', response.data.data.theme); // string - ls przyjmuje tylko stringi do zapisu 
+                storage.setItem('theme', response.data.data.theme); 
                 emit('selected', response.data.data.theme);
             }
         })
     } catch (err){
         console.error('Error updating theme: ', err);
-        showAlert( 
-            allertType.ERROR, // tak obstawiam -> pochodzi z katalogu enum
-            trans("Wystąpił błąd przy aktualizacji")
-        )
+        showAlert(alertType.ERROR /* Prawdopodobnie istnieje taki alertType */, trans("Wystąpił błąd przy aktualizacji"));
+
     }
 };
 </script>

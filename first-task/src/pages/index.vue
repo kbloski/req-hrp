@@ -1,3 +1,52 @@
+<template>
+    <v-card
+        class="mx-auto"
+        max-width="1000"
+        min-width="300"
+        title="Register"
+        :subtitle="`Step ${steps.current}/${steps.total}`"
+    >
+        <v-btn
+            v-if="steps.current >= 2 && steps.current"
+            @click="backStep"
+            class="ms-4 mb-2"
+            density="compact"
+            color="error"
+            >Back</v-btn
+        >
+        <v-divider></v-divider>
+
+        <div v-show="steps.current == 1">
+            <keep-alive>
+                <personal-form @submit-form="endStep1"></personal-form>
+            </keep-alive>
+        </div>
+        <div v-show="steps.current == 2">
+            <keep-alive>
+                <contact-form @submit-form="endStep2"></contact-form>
+            </keep-alive>
+        </div>
+        <div v-show="steps.current == 3">
+            <keep-alive>
+                <experience-form @submit-form="submitExperienceForm"></experience-form>
+            </keep-alive>
+            <v-btn 
+              color="warning" 
+              class="ms-4 mb-2" 
+              @click="summary"
+            >Go to summary</v-btn>
+            <v-divider></v-divider>
+            <experiences-list
+                :experiences="registerStore.experiences"
+            ></experiences-list>
+        </div>
+        <div v-if="steps.current === steps.total">
+          <Summary></Summary>
+        </div>
+    </v-card>
+</template>
+
+
 <script setup>
 import ExperiencesList from "@/components/ExperiencesList.vue";
 import ContactForm from "@/components/forms/ContactForm.vue";
@@ -51,51 +100,3 @@ function submitExperienceForm(form) {
     registerStore.experiences.push( experienceData );
 }
 </script>
-
-<template>
-    <v-card
-        class="mx-auto"
-        max-width="1000"
-        min-width="300"
-        title="Register"
-        :subtitle="`Step ${steps.current}/${steps.total}`"
-    >
-        <v-btn
-            v-if="steps.current >= 2 && steps.current"
-            @click="backStep"
-            class="ms-4 mb-2"
-            density="compact"
-            color="error"
-            >Back</v-btn
-        >
-        <v-divider></v-divider>
-
-        <div v-show="steps.current == 1">
-            <keep-alive>
-                <personal-form @submit-form="endStep1"></personal-form>
-            </keep-alive>
-        </div>
-        <div v-show="steps.current == 2">
-            <keep-alive>
-                <contact-form @submit-form="endStep2"></contact-form>
-            </keep-alive>
-        </div>
-        <div v-show="steps.current == 3">
-            <keep-alive>
-                <experience-form @submit-form="submitExperienceForm"></experience-form>
-            </keep-alive>
-            <v-btn 
-              color="warning" 
-              class="ms-4 mb-2" 
-              @click="summary"
-            >Go to summary</v-btn>
-            <v-divider></v-divider>
-            <experiences-list
-                :experiences="registerStore.experiences"
-            ></experiences-list>
-        </div>
-        <div v-if="steps.current === steps.total">
-          <Summary></Summary>
-        </div>
-    </v-card>
-</template>
