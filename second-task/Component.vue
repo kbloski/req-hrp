@@ -75,7 +75,7 @@ const updateTheme = (value : theme ) => {
                 emit('selected', response.data.data.theme);
             }
 
-            if (!response.data.success) {
+            if (!response.data?.success) {
                 throw new Error('Nie udało się zapisać ustawień');
             }
 
