@@ -74,6 +74,11 @@ const updateTheme = (value : theme ) => {
                 storage.setItem('theme', response.data.data.theme); 
                 emit('selected', response.data.data.theme);
             }
+
+            if (!response.data.success) {
+                throw new Error('Nie udało się zapisać ustawień');
+            }
+
         })
     } catch (err){
         console.error('Error updating theme: ', err);
