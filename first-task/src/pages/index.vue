@@ -73,7 +73,9 @@ function endStep1(formData) {
 
     registerStore.name = data.name;
     registerStore.surname = data.surname;
-    registerStore.birthday = data.brithday;
+    registerStore.birthday = data.birthday;
+
+    console.log( registerStore.birthday )
 
     steps.current = 2;
 }

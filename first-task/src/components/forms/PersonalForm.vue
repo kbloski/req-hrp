@@ -6,32 +6,32 @@ const emits = defineEmits(['submit-form'])
 
 const name = ref(null)
 const surname = ref(null)
-const dateBrith = ref(null)
+const birthday = ref(null)
 
 // Errors
 const validationErrors = reactive({
     name: null,
     surname: null,
-    dateBrith: null
+    birthday: null
 })
 
 const isValidate = computed( 
     () => 
     !validationErrors.name 
     && !validationErrors.surname 
-    && !validationErrors.dateBrith
+    && !validationErrors.birthday
 )
 
-watch([name, surname, dateBrith], ([name, surname, dateBrith]) => {
+watch([name, surname, birthday], ([name, surname, birthday]) => {
     validationErrors.name = null
     validationErrors.surname = null
-    validationErrors.dateBrith = null
+    validationErrors.birthday = null
 
     if (!name) validationErrors.name = 'This field is required'
 
     if (!surname) validationErrors.surname = 'This field is required'
     
-    if (!dateBrith) validationErrors.dateBrith = 'This field is required'
+    if (!birthday) validationErrors.birthday = 'This field is required'
 }, { immediate: true})
 
 
@@ -43,7 +43,7 @@ function onSubmit( event ){
         formData: {
             name: name.value,
             surname: surname.value,
-            dateBrith: dateBrith.value
+            birthday: birthday.value
         }
     })
 }
@@ -68,12 +68,12 @@ function onSubmit( event ){
                 required
             ></v-text-field>
             <v-text-field
-                v-model="dateBrith"
+                v-model="birthday"
                 label="Brithday"
                 color="primary"
                 type="date"
                 :max="getCurrentDateFormYearMontDay()"
-                :rules="[() => validationErrors.dateBrith ?? true]"
+                :rules="[() => validationErrors.birthday ?? true]"
                 required
             ></v-text-field>
             <v-btn 
