@@ -24,14 +24,12 @@ function sendData(){
     <v-container>
         <v-alert
             v-if="submitFetch.isOk.value === true"
-            closable
             title="Success"
             text="Your data sent successfully."
             type="success"
         ></v-alert>    
         <v-alert
             v-if="submitFetch.isOk.value === false"
-            closable
             title="Error"
             text='Error sending your data. Try again.'
             type="error"
