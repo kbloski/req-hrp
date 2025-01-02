@@ -84,7 +84,7 @@ const updateTheme = (value : theme ) => {
         })
     } catch (err){
         console.error('Error updating theme: ', err);
-        showAlert(alertType.ERROR /* Prawdopodobnie istnieje taki alertType */, trans("Wystąpił błąd przy aktualizacji"));
+        showAlert(alertType.ERROR /* Prawdopodobnie istnieje taki enum - alertType */, trans("Wystąpił błąd przy aktualizacji"));
 
     }
 };
